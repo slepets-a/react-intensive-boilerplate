@@ -15167,7 +15167,7 @@ exports.default = Feed;
 /* 103 */
 /***/ (function(module, exports) {
 
-module.exports = "/react-intensive-boilerplate/images/homer.f0837.png";
+module.exports = "/react-intensive-boilerplate/images/lisa.c0366.png";
 
 /***/ }),
 /* 104 */
@@ -15205,7 +15205,7 @@ var _react = _interopRequireWildcard(__webpack_require__(0));
 
 var _reactHotLoader = __webpack_require__(105);
 
-var _homer = _interopRequireDefault(__webpack_require__(103));
+var _lisa = _interopRequireDefault(__webpack_require__(103));
 
 var _Feed = _interopRequireDefault(__webpack_require__(102));
 
@@ -15226,7 +15226,7 @@ let App = (_dec = (0, _reactHotLoader.hot)(module), _dec(_class = class App exte
     var _temp;
 
     return _temp = super(...args), _defineProperty(this, "state", {
-      avatar: _homer.default,
+      avatar: _lisa.default,
       currentUserFirstName: 'Lisa',
       currentUserLastName: 'Simpson'
     }), _temp;
@@ -15526,4 +15526,4 @@ _reactDom.default.render(_react.default.createElement(_App.default, null), docum
 
 /***/ })
 ],[[117,0,3,2,1]]]);
-//# sourceMappingURL=main.9f14e.js.map
+//# sourceMappingURL=main.409ce.js.map
