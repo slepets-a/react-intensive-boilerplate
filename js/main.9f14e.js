@@ -14074,7 +14074,7 @@ var _instruments = __webpack_require__(88);
 // Core
 const GROUP_ID = 'l1lz1az2m5';
 exports.GROUP_ID = GROUP_ID;
-const TOKEN = 'cc6j4usnne';
+const TOKEN = '6d8v17s9zi';
 exports.TOKEN = TOKEN;
 const url = 'https://lab.lectrum.io/react/api';
 exports.url = url;
@@ -15227,7 +15227,7 @@ let App = (_dec = (0, _reactHotLoader.hot)(module), _dec(_class = class App exte
 
     return _temp = super(...args), _defineProperty(this, "state", {
       avatar: _homer.default,
-      currentUserFirstName: 'Homer',
+      currentUserFirstName: 'Lisa',
       currentUserLastName: 'Simpson'
     }), _temp;
   }
@@ -15526,4 +15526,4 @@ _reactDom.default.render(_react.default.createElement(_App.default, null), docum
 
 /***/ })
 ],[[117,0,3,2,1]]]);
-//# sourceMappingURL=main.56315.js.map
+//# sourceMappingURL=main.9f14e.js.map
