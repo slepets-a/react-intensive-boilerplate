@@ -14838,7 +14838,7 @@ var _gsap = _interopRequireDefault(__webpack_require__(92));
 
 var _stylesM = _interopRequireDefault(__webpack_require__(91));
 
-var _config = __webpack_require__(89);
+var _api = __webpack_require__(89);
 
 var _withProfile = __webpack_require__(3);
 
@@ -14883,11 +14883,11 @@ let Feed = (0, _withProfile.withProfile)(_class = class Feed extends _react.Comp
       try {
         this._setPostsFetchingState(true);
 
-        const response = await fetch(_config.api, {
+        const response = await fetch(_api.api, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: _config.TOKEN
+            Authorization: _api.TOKEN
           },
           body: JSON.stringify({
             comment
@@ -14918,7 +14918,7 @@ let Feed = (0, _withProfile.withProfile)(_class = class Feed extends _react.Comp
       try {
         this._setPostsFetchingState(true);
 
-        const response = await fetch(_config.api, {
+        const response = await fetch(_api.api, {
           method: 'GET'
         });
 
@@ -14944,10 +14944,10 @@ let Feed = (0, _withProfile.withProfile)(_class = class Feed extends _react.Comp
       try {
         this._setPostsFetchingState(true);
 
-        const response = await fetch(`${_config.api}/${id}`, {
+        const response = await fetch(`${_api.api}/${id}`, {
           method: 'DELETE',
           headers: {
-            Authorization: _config.TOKEN
+            Authorization: _api.TOKEN
           }
         });
 
@@ -14972,10 +14972,10 @@ let Feed = (0, _withProfile.withProfile)(_class = class Feed extends _react.Comp
       try {
         this._setPostsFetchingState(true);
 
-        const response = await fetch(`${_config.api}/${id}`, {
+        const response = await fetch(`${_api.api}/${id}`, {
           method: 'PUT',
           headers: {
-            Authorization: _config.TOKEN
+            Authorization: _api.TOKEN
           }
         });
 
@@ -15038,7 +15038,7 @@ let Feed = (0, _withProfile.withProfile)(_class = class Feed extends _react.Comp
 
     this._fetchPosts();
 
-    _init.socket.emit('join', _config.GROUP_ID);
+    _init.socket.emit('join', _api.GROUP_ID);
 
     _init.socket.on('create', postJSON => {
       const {
@@ -15520,4 +15520,4 @@ _reactDom.default.render(_react.default.createElement(_App.default, null), docum
 
 /***/ })
 ],[[117,0,3,2,1]]]);
-//# sourceMappingURL=main.050a7.js.map
+//# sourceMappingURL=main.8f498.js.map
