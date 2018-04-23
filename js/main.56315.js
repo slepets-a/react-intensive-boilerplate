@@ -15088,6 +15088,12 @@ let Feed = (0, _withProfile.withProfile)(_class = class Feed extends _react.Comp
 
   componentWillUnmount() {
     clearInterval(this.refetch);
+
+    _init.socket.removeListener('create');
+
+    _init.socket.removeListener('remove');
+
+    _init.socket.removeListener('like');
   }
 
   render() {
@@ -15221,8 +15227,8 @@ let App = (_dec = (0, _reactHotLoader.hot)(module), _dec(_class = class App exte
 
     return _temp = super(...args), _defineProperty(this, "state", {
       avatar: _homer.default,
-      currentUserFirstName: 'Dima',
-      currentUserLastName: 'Vakatsienko'
+      currentUserFirstName: 'Homer',
+      currentUserLastName: 'Simpson'
     }), _temp;
   }
 
@@ -15520,4 +15526,4 @@ _reactDom.default.render(_react.default.createElement(_App.default, null), docum
 
 /***/ })
 ],[[117,0,3,2,1]]]);
-//# sourceMappingURL=main.8f498.js.map
+//# sourceMappingURL=main.56315.js.map
