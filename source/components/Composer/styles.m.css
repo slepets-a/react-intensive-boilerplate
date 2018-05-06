@@ -5,9 +5,9 @@
     height: 130px;
     margin-bottom: 10px;
     padding: 12px;
-    border: 1px solid var(--paletteColor3);
+    border: 1px solid rgba(255, 255, 255, .25);
     border-radius: 3px;
-    background-color: var(--paletteColor2);
+    background-color: transparent;
 
     & img {
         background-color: var(--paletteColor5);
@@ -23,33 +23,36 @@
     & input[type='submit'] {
         position: absolute;
         right: 10px;
-        bottom: 10px;
+        bottom: 7px;
         width: 58px;
         height: 22px;
         transition: background-color .2s ease-in;
         border: 0;
         border-radius: 2px;
         outline: 0;
-        background-color: var(--paletteColor6);
+        background-color: #781914;
         color: var(--paletteColor2);
         font-size: 12px;
         letter-spacing: 1px;
         cursor: pointer;
 
         &:hover {
-            background-color: var(--paletteColor7);
+            background-color: #c81914;
         }
     }
 
     & textarea {
         width: 410px;
         height: 80px;
-        transition: font-size .5s ease;
+        transition: font-size .25s ease;
+        background-color: rgba(255, 255, 255, .2);
         border: 0;
+        border-radius: .25rem;
         outline: 0;
         font-size: 14px;
         font-weight: 300;
         resize: none;
+        padding: .5rem;
 
         &::scrollbar {
             display: none;
@@ -65,7 +68,7 @@
         }
 
         &:focus {
-            font-size: 24px;
+            font-size: 1rem;
         }
     }
 }

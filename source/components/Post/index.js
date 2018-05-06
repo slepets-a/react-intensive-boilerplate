@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import Styles from './styles';
 
@@ -7,6 +8,7 @@ export class Post extends React.Component {
     render () {
         const {
             avatar,
+            comment,
             currentUserFirstName,
             currentUserLastName,
         } = this.props;
@@ -16,12 +18,19 @@ export class Post extends React.Component {
                 <div className = { Styles.info }>
                     <img alt = { `${currentUserFirstName} ${currentUserLastName}` } src = { avatar } />
                     <div className = { Styles.description }>
-                        <a href = 'https://google.com/'>{ `${currentUserFirstName} ${currentUserLastName}` }</a>
+                        <a href = 'https://www.linkedin.com/in/artemslepets/'>{ `${currentUserFirstName} ${currentUserLastName}` }</a>
                         <time>{ moment().format('MMMM D h:mm:ss a') }</time>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, minima!</p>
+                <pre>{ comment }</pre>
             </section>
         );
     }
 }
+
+Post.propTypes = {
+    avatar: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
+    currentUserFirstName: PropTypes.string.isRequired,
+    currentUserLastName: PropTypes.string.isRequired,
+};

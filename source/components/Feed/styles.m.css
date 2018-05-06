@@ -3,6 +3,12 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    background-color: var(--paletteColor7);
-    padding: .5rem;
+    background: black url("https://images5.alphacoders.com/335/thumb-1920-335133.jpg") right top no-repeat;
+    background-attachment: fixed;
+    background-size: contain;
+}
+
+.noPosts {
+    font-size: .75rem;
+    color: rgba(255, 255, 255, .25);
 }

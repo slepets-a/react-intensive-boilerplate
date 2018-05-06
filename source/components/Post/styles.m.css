@@ -1,6 +1,7 @@
 .post {
-    background-color: white;
+    background-color: rgba(255, 255, 255, .1);
     border-radius: .25rem;
+    margin-bottom: 1rem;
     max-width: 500px;
     padding: 1rem;
 
@@ -28,8 +29,13 @@
         text-decoration: none;
     }
 
-    & p {
+    & time {
+        color: rgba(255, 255, 255, .1);
+    }
+
+    & pre {
         color: gray;
+        display: block;
         margin-top: 1rem;
     }
 }
