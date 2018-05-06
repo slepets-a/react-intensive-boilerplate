@@ -37,5 +37,6 @@
         color: gray;
         display: block;
         margin-top: 1rem;
+        white-space: normal;
     }
 }

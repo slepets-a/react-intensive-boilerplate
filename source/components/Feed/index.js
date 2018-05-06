@@ -9,6 +9,8 @@ import StatusBar from "../../components/StatusBar";
 import Catcher from '../../components/Catcher';
 import Counter from '../../components/Counter';
 
+import { api, TOKEN } from "../../config/api";
+
 import Styles from './styles.m.css';
 
 class Feed extends React.Component {
@@ -18,18 +20,56 @@ class Feed extends React.Component {
             posts: [],
         };
         this.createPost = this._createPost.bind(this);
+        this.fetchPosts = this._fetchPosts.bind(this);
     }
 
-    _createPost (comment = 'No comment here') {
-        this.setState(({ posts }) => ({
-            posts: [
-                {
-                    id: getUniqueID(),
-                    comment,
-                },
-                ...posts
-            ],
-        }));
+    componentDidMount () {
+        this.fetchPosts();
+    }
+
+    _fetchPosts () {
+        fetch(api)
+            .then((response) => {
+                if (response.status !== 200) {
+                    throw new Error('Fetch posts failed');
+                }
+
+                return response.json();
+            })
+            .then(({ data }) => {
+                this.setState(({ posts }) => ({
+                    posts: [...data, ...posts],
+                }));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    _createPost (comment) {
+        fetch(api, {
+            method: 'POST',
+            headers: {
+                'Authorization': TOKEN,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ comment }),
+        })
+            .then((response) => {
+                if (response.status !== 200) {
+                    throw new Error('Create post failed');
+                }
+
+                return response.json();
+            })
+            .then(({ data }) => {
+                this.setState(({ posts }) => ({
+                    posts: [data, ...posts],
+                }));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     render () {
@@ -39,7 +79,7 @@ class Feed extends React.Component {
 
         const renderedPosts = posts.length ?
             posts.map((post) => (<Catcher key = { post.id }>
-                <Post comment = { post.comment } { ...this.props } />
+                <Post { ...post } />
             </Catcher>)):
             <p className = { Styles.noPosts }>Start conversation right now!</p>;
 

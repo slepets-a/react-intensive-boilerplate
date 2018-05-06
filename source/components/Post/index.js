@@ -16,17 +16,18 @@ export class Post extends React.Component {
         const {
             avatar,
             comment,
-            currentUserFirstName,
-            currentUserLastName,
+            created,
+            firstName,
+            lastName,
         } = this.props;
 
         return (
             <section className = { Styles.post } >
                 <div className = { Styles.info }>
-                    <img alt = { `${currentUserFirstName} ${currentUserLastName}` } src = { avatar } />
+                    <img alt = { `${firstName} ${lastName}` } src = { avatar } />
                     <div className = { Styles.description }>
-                        <a href = 'https://www.linkedin.com/in/artemslepets/'>{ `${currentUserFirstName} ${currentUserLastName}` }</a>
-                        <time>{ moment().format('MMMM D h:mm:ss a') }</time>
+                        <a href = 'https://www.linkedin.com/in/artemslepets/'>{ `${firstName} ${lastName}` }</a>
+                        <time>{ moment.unix(created).format('MMMM D h:mm:ss a') }</time>
                     </div>
                 </div>
                 <pre>{ comment }</pre>
@@ -38,6 +39,7 @@ export class Post extends React.Component {
 Post.propTypes = {
     avatar: PropTypes.string.isRequired,
     comment: PropTypes.string.isRequired,
-    currentUserFirstName: PropTypes.string.isRequired,
-    currentUserLastName: PropTypes.string.isRequired,
+    created: PropTypes.number.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
 };
