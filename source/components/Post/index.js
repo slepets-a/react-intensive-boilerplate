@@ -5,6 +5,13 @@ import PropTypes from 'prop-types';
 import Styles from './styles';
 
 export class Post extends React.Component {
+
+    shouldComponentUpdate (nextProps) {
+        return Object
+            .entries(nextProps)
+            .some(([key, value]) => this.props[key] !== value);
+    }
+
     render () {
         const {
             avatar,

@@ -6,6 +6,8 @@ import { getUniqueID } from '../../instruments';
 import { Composer } from "../../components/Composer";
 import { Post } from "../../components/Post";
 import StatusBar from "../../components/StatusBar";
+import Catcher from '../../components/Catcher';
+import Counter from '../../components/Counter';
 
 import Styles from './styles.m.css';
 
@@ -36,13 +38,16 @@ class Feed extends React.Component {
         } = this.state;
 
         const renderedPosts = posts.length ?
-            posts.map((post) => <Post comment = { post.comment } key = { post.id } { ...this.props } />):
+            posts.map((post) => (<Catcher key = { post.id }>
+                <Post comment = { post.comment } { ...this.props } />
+            </Catcher>)):
             <p className = { Styles.noPosts }>Start conversation right now!</p>;
 
         return (
             <section className = { Styles.feed } >
                 <StatusBar />
                 <Composer createPost = { this.createPost } />
+                <Counter count = { posts.length } />
                 { renderedPosts }
             </section>
         );

@@ -14,6 +14,7 @@ export class Composer extends React.Component {
         // this.onChangeHandler = ::this._onChangeHandler;
         this.onSubmitHandler = this._onSubmitHandler.bind(this);
         this.onSendPostHandler = this._onSendPostHandler.bind(this);
+        this.onCopyTextHandler = this._onCopyTextHandler.bind(this);
     }
 
     _onChangeHandler (event) {
@@ -26,6 +27,10 @@ export class Composer extends React.Component {
         if (event.nativeEvent.keyCode === 10) {
             this.onSubmitHandler();
         }
+    }
+
+    _onCopyTextHandler (event) {
+        event.preventDefault();
     }
 
     _onSubmitHandler () {
@@ -60,6 +65,8 @@ export class Composer extends React.Component {
                                     placeholder = { `What is in your mind, ${currentUserFirstName}` }
                                     value = { comment }
                                     onChange = { this.onChangeHandler }
+                                    onCopy = { this.onCopyTextHandler }
+                                    onCut = { this.onCopyTextHandler }
                                     onKeyPress = { this.onSendPostHandler }
                                 />
                             </form>

@@ -1,0 +1,16 @@
+.counter {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-bottom: .5rem;
+    color: var(--paletteColor7);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: -35px;
+        width: 30px;
+        height: 30px;
+    }
+}
