@@ -12,7 +12,7 @@ export class Composer extends React.Component {
                         <section className = { Styles.composer } >
                             <form>
                                 <img alt = 'LoL' src = { avatar } />
-                                <textarea placeholder = { `What is in your mind, ${ currentUserFirstName }` } />
+                                <textarea placeholder = { `What is in your mind, ${currentUserFirstName}` } />
                             </form>
                             <input type = 'submit' value = 'Post' />
                         </section>

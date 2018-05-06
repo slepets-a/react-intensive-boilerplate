@@ -8,14 +8,9 @@ import Styles from './styles.m.css';
 
 class Feed extends React.Component {
     render () {
-        const {
-            avatar,
-            currentUserFirstName,
-        } = this.props;
-
         return (
             <section className = { Styles.feed } >
-                <Composer avatar = { avatar } currentUserFirstName = { currentUserFirstName } />
+                <Composer />
                 <Post { ...this.props } />
             </section>
         );
@@ -23,9 +18,9 @@ class Feed extends React.Component {
 }
 
 Feed.propTypes = {
-    avatar:               PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
     currentUserFirstName: PropTypes.string.isRequired,
-    currentUserLastName:  PropTypes.string.isRequired,
+    currentUserLastName: PropTypes.string.isRequired,
 };
 
 export default Feed;

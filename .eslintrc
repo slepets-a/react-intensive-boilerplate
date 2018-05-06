@@ -87,7 +87,7 @@ rules:
   no-loop-func: 2
   no-magic-numbers: 0
   no-multi-spaces: [2, "exceptions": { "VariableDeclarator": true, "Property": true }]
-  key-spacing: [2, { "beforeColon": false, "afterColon": true, "align": "value" }]
+#  key-spacing: [2, { "beforeColon": false, "afterColon": true, "align": "value" }]
   no-multi-str: 2
   no-new-func: 2
   no-new-wrappers: 2

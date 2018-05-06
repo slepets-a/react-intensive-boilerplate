@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 import { Provider } from '../../components/HOC/withProfile';
 
 import Feed from '../../components/Feed';
-import avatar from 'theme/assets/homer';
 
 const config = {
-    avatar,
-    currentUserFirstName: 'Lorem',
-    currentUserLastName:  'Ipsum',
+    avatar: 'https://www.discosportforums.co.uk/download/file.php?avatar=943_1435421459.png',
+    currentUserFirstName: 'Tony',
+    currentUserLastName:  'Stark',
 };
 
 export default class App extends Component {
