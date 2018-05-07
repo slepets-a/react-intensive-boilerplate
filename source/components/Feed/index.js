@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup }  from 'react-transition-group';
+import { CSSTransition, TransitionGroup, Transition }  from 'react-transition-group';
+import { fromTo } from 'gsap';
 
 import Composer from "../../components/Composer";
 import Post from "../../components/Post";
@@ -8,6 +10,7 @@ import StatusBar from "../../components/StatusBar";
 import Catcher from '../../components/Catcher';
 import Counter from '../../components/Counter';
 import Spinner from '../../components/Spinner';
+import Postman from '../../components/Postman';
 
 import { socket } from '../../socket';
 import { api, TOKEN, GROUP_ID } from "../../config/api";
@@ -15,10 +18,12 @@ import { api, TOKEN, GROUP_ID } from "../../config/api";
 import Styles from './styles.m.css';
 
 class Feed extends React.Component {
+
     constructor () {
         super();
         this.state = {
             posts: [],
+            hidePostman: true,
             isPostsFetching: false,
         };
         this.createPost = this._createPost.bind(this);
@@ -26,6 +31,10 @@ class Feed extends React.Component {
         this.removePost = this._removePost.bind(this);
         this.likePost = this._likePost.bind(this);
         this.setPostsFetchingState = this._setPostsFetchingState.bind(this);
+        this.handleComposerAppear = this._handleComposerAppear.bind(this);
+        this.handleCounterAppear = this._handleCounterAppear.bind(this);
+        this.handlePostmanAppear = this._handlePostmanAppear.bind(this);
+        this.handlePostmanDisappear = this._handlePostmanDisappear.bind(this);
     }
 
     componentDidMount () {
@@ -88,7 +97,23 @@ class Feed extends React.Component {
                 }));
             }
         });
+
+        this.postmanInterval = setTimeout(() => {
+            this.setState({ hidePostman: false });
+        }, 5000);
+
+        // add 'Postman' flag to local storage
+        localStorage.setItem('postman', 'isShown');
     }
+
+    componentWillUnmount () {
+        clearTimeout(this.postmanInterval);
+    }
+
+    // interval for Postman
+    postmanInterval = null;
+    // flag for showing postman
+    showPostman = localStorage.getItem('postman');
 
     _setPostsFetchingState (state) {
         this.setState(() => ({
@@ -110,16 +135,17 @@ class Feed extends React.Component {
                 this.setState(({ posts }) => ({
                     posts: [...data, ...posts],
                 }), () => {
-                    this.setPostsFetchingState(true);
+                    this.setPostsFetchingState(false);
                 });
             })
             .catch((error) => {
                 console.log(error);
-                this.setPostsFetchingState(true);
+                this.setPostsFetchingState(false);
             });
     }
 
     _createPost (comment) {
+        this.setPostsFetchingState(true);
         fetch(api, {
             method: 'POST',
             headers: {
@@ -138,10 +164,13 @@ class Feed extends React.Component {
             .then(({ data }) => {
                 this.setState(({ posts }) => ({
                     posts: [data, ...posts],
-                }));
+                }), () => {
+                    this.setPostsFetchingState(false);
+                });
             })
             .catch((error) => {
                 console.log(error);
+                this.setPostsFetchingState(false);
             });
     }
 
@@ -187,9 +216,27 @@ class Feed extends React.Component {
         }
     }
 
+    _handleComposerAppear (composer) {
+        fromTo(composer, 0.5, { opacity: 0 }, { opacity: 1 });
+    }
+
+    _handleCounterAppear (counter) {
+        fromTo(counter, 0.5, { x: 400, opacity : 0 }, { x: 0, opacity: 1 });
+    }
+
+    _handlePostmanAppear (postman) {
+        fromTo(postman, 1, { y: 400, opacity : 0 }, { y: 0, opacity: 1 });
+    }
+
+    _handlePostmanDisappear (postman) {
+        fromTo(postman, 1, { y: 0, opacity : 1 }, { y: 400, opacity: 0 });
+    }
+
     render () {
         const {
             posts,
+            isPostsFetching,
+            hidePostman,
         } = this.state;
         const {
             currentUserFirstName,
@@ -220,11 +267,35 @@ class Feed extends React.Component {
         return (
             <section className = { Styles.feed } >
                 <StatusBar />
-                <Composer createPost = { this.createPost } />
-                <Counter count = { posts.length } />
+                <Transition
+                    appear
+                    in
+                    timeout = { 500 }
+                    onEnter = { this.handleComposerAppear }>
+                    <Composer createPost = { this.createPost } />
+                </Transition>
+                <Transition
+                    appear
+                    in
+                    timeout = { 500 }
+                    onEnter = { this.handleCounterAppear }>
+                    <Counter count = { posts.length } />
+                </Transition>
+                <Spinner isSpinning = { isPostsFetching } />
                 <TransitionGroup>
                     { renderedPosts }
                 </TransitionGroup>
+                { this.showPostman ? null : (
+                    <Transition
+                        appear
+                        unmountOnExit
+                        in = { hidePostman }
+                        timeout = { 500 }
+                        onEnter = { this.handlePostmanAppear }
+                        onExit = { this.handlePostmanDisappear }>
+                        <Postman />
+                    </Transition>
+                ) }
             </section>
         );
     }

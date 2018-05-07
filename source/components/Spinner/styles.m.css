@@ -14,8 +14,8 @@
     border: 3px solid var(--paletteColor12);
     border-top: 4px solid var(--paletteColor13);
     border-radius: 100%;
-    top: 5px;
-    right: 5px;
+    top: 3rem;
+    right: 2rem;
     margin: auto;
     animation: spinner 1s infinite linear;
     z-index: 2;

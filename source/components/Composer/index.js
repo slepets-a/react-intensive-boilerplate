@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Styles from './styles.m.css';
 import { withProfile } from '../../components/HOC/withProfile';
+import { socket } from "../../socket";
 
 class Composer extends React.Component {
     constructor () {
@@ -15,6 +16,21 @@ class Composer extends React.Component {
         this.onSubmitHandler = this._onSubmitHandler.bind(this);
         this.onSendPostHandler = this._onSendPostHandler.bind(this);
         this.onCopyTextHandler = this._onCopyTextHandler.bind(this);
+    }
+
+    componentDidMount() {
+        // socket.on('quote', (quote) => {
+        //     const data = JSON.parse(quote);
+        //     const { comment } = this.state;
+        //
+        //     if (!comment) {
+        //         this.setState({
+        //             comment: data.quote,
+        //         }, () => {
+        //             this.onSubmitHandler();
+        //         });
+        //     }
+        // });
     }
 
     _onChangeHandler (event) {
