@@ -6,6 +6,29 @@
     background: black url("https://images5.alphacoders.com/335/thumb-1920-335133.jpg") right top no-repeat;
     background-attachment: fixed;
     background-size: contain;
+
+    & .postInStart {
+        transform: translate3D(0, -100vh, 10vh) scale(-.1);
+        opacity: .01;
+    }
+
+    & .postInEnd {
+        transform: translate3D(0, 0, 0) scale(1);
+        transition: opacity 500ms var(--cubic3),
+                    transform 500ms var(--cubic3);
+        opacity: 1;
+    }
+
+    & .postOutStart {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    & .postOutEnd {
+        transform: translateY(-100vh) scale(-.1);
+        transition: opacity 400ms var(--cubic3), transform 400ms var(--cubic3);
+        opacity: .01;
+    }
 }
 
 .noPosts {

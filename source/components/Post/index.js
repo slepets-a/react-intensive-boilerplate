@@ -5,6 +5,7 @@ import cx from 'classnames';
 
 import Styles from './styles.m';
 
+import Like from '../../components/Like';
 
 class Post extends React.Component {
     constructor () {
@@ -47,7 +48,10 @@ class Post extends React.Component {
             comment,
             created,
             firstName,
+            id,
             lastName,
+            likePost,
+            likes,
         } = this.props;
         const isPostMine = lastName === 'Слепец';
         const postStyle = cx(Styles.post, {
@@ -65,6 +69,11 @@ class Post extends React.Component {
                     </div>
                 </div>
                 <pre>{ comment }</pre>
+                <Like
+                    id = { id }
+                    likePost = { likePost }
+                    likes = { likes }
+                />
             </section>
         );
     }
@@ -75,7 +84,10 @@ Post.propTypes = {
     comment: PropTypes.string.isRequired,
     created: PropTypes.number.isRequired,
     firstName: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
+    likePost: PropTypes.func.isRequired,
+    likes: PropTypes.array.isRequired,
 };
 
 export default Post;
