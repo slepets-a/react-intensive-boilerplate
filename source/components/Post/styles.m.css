@@ -4,6 +4,7 @@
     margin-bottom: 1rem;
     max-width: 500px;
     padding: 1rem;
+    position: relative;
 
     & img {
         background-color: var(--paletteColor5);
@@ -39,4 +40,23 @@
         margin-top: 1rem;
         white-space: normal;
     }
+
+    & .cross {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 10px;
+        height: 10px;
+        background-image: url('../../theme/assets/cross.png');
+        background-repeat: no-repeat;
+        cursor: pointer;
+
+        &:hover {
+            background-position: -13px 0;
+        }
+    }
+}
+
+.mine {
+    background-color: rgba(255, 255, 255, .25);
 }

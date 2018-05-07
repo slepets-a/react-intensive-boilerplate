@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getUniqueID } from '../../instruments';
-
-import { Composer } from "../../components/Composer";
-import { Post } from "../../components/Post";
+import Composer from "../../components/Composer";
+import Post from "../../components/Post";
 import StatusBar from "../../components/StatusBar";
 import Catcher from '../../components/Catcher';
 import Counter from '../../components/Counter';
 
-import { api, TOKEN } from "../../config/api";
+import { socket } from '../../socket';
+import { api, TOKEN, GROUP_ID } from "../../config/api";
 
 import Styles from './styles.m.css';
 
@@ -21,10 +20,32 @@ class Feed extends React.Component {
         };
         this.createPost = this._createPost.bind(this);
         this.fetchPosts = this._fetchPosts.bind(this);
+        this.removePost = this._removePost.bind(this);
     }
 
     componentDidMount () {
+        const {
+            currentUserFirstName,
+            currentUserLastName,
+        } = this.props;
+
         this.fetchPosts();
+        socket.emit('join', GROUP_ID);
+        socket.on('create', (response) => {
+            const {
+                data: createdPost,
+                meta: {
+                    authorFirstName,
+                    authorLastName,
+                },
+            } = JSON.parse(response);
+
+            if (`${authorFirstName} ${authorLastName}` !== `${currentUserFirstName} ${currentUserLastName}`) {
+                this.setState(({ posts }) => ({
+                    posts: [createdPost, ...posts],
+                }));
+            }
+        });
     }
 
     _fetchPosts () {
@@ -72,14 +93,43 @@ class Feed extends React.Component {
             });
     }
 
+    async _removePost (id) {
+        try {
+            const response = await fetch(`${api}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': TOKEN,
+                },
+            });
+
+            if (response.status !== 204) {
+                throw new Error('Remove post failed');
+            }
+            this.setState(({ posts }) => ({
+                posts: posts.filter((post) => post.id !== id),
+            }));
+        } catch ({ message }) {
+            console.log(message);
+        }
+    }
+
     render () {
         const {
             posts,
         } = this.state;
+        const {
+            currentUserFirstName,
+            currentUserLastName,
+        } = this.props;
 
         const renderedPosts = posts.length ?
             posts.map((post) => (<Catcher key = { post.id }>
-                <Post { ...post } />
+                <Post
+                    { ...post }
+                    currentUserFirstName = { currentUserFirstName }
+                    currentUserLastName = { currentUserLastName }
+                    removePost = { this.removePost }
+                />
             </Catcher>)):
             <p className = { Styles.noPosts }>Start conversation right now!</p>;
 

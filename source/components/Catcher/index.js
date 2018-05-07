@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Styles from './styles.m.css';
 
-export default class Catcher extends React.Component {
+class Catcher extends React.Component {
     constructor () {
         super();
         this.state = {
@@ -43,3 +43,5 @@ export default class Catcher extends React.Component {
 Catcher.propsTypes = {
     children: PropTypes.object.isRequired,
 };
+
+export default Catcher;

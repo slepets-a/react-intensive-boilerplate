@@ -8,12 +8,12 @@ import Feed from '../../components/Feed';
 
 const config = {
     avatar: 'https://www.discosportforums.co.uk/download/file.php?avatar=943_1435421459.png',
-    currentUserFirstName: 'Tony',
-    currentUserLastName:  'Stark',
+    currentUserFirstName: 'Артём',
+    currentUserLastName:  'Слепец',
 };
 
 @hot(module)
-export default class App extends Component {
+class App extends Component {
     render () {
         return (
             <Catcher>
@@ -24,3 +24,5 @@ export default class App extends Component {
         );
     }
 }
+
+export default App;

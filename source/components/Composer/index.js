@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Styles from './styles.m.css';
-import { Consumer } from '../../components/HOC/withProfile';
+import { withProfile } from '../../components/HOC/withProfile';
 
-export class Composer extends React.Component {
+class Composer extends React.Component {
     constructor () {
         super();
         this.state = {
@@ -53,31 +53,31 @@ export class Composer extends React.Component {
         const {
             comment,
         } = this.state;
+        const {
+            avatar,
+            currentUserFirstName,
+        } = this.props;
 
         return (
-            <Consumer>
-                {
-                    ({ avatar, currentUserFirstName }) => (
-                        <section className = { Styles.composer } >
-                            <form>
-                                <img alt = 'LoL' src = { avatar } />
-                                <textarea
-                                    placeholder = { `What is in your mind, ${currentUserFirstName}` }
-                                    value = { comment }
-                                    onChange = { this.onChangeHandler }
-                                    onCopy = { this.onCopyTextHandler }
-                                    onCut = { this.onCopyTextHandler }
-                                    onKeyPress = { this.onSendPostHandler }
-                                />
-                            </form>
-                            <input type = 'submit' value = 'Post' onClick = { this.onSubmitHandler } />
-                        </section>
-                    )
-                }
-            </Consumer>
+            <section className = { Styles.composer } >
+                <form>
+                    <img alt = 'LoL' src = { avatar } />
+                    <textarea
+                        placeholder = { `What is in your mind, ${currentUserFirstName}` }
+                        value = { comment }
+                        onChange = { this.onChangeHandler }
+                        onCopy = { this.onCopyTextHandler }
+                        onCut = { this.onCopyTextHandler }
+                        onKeyPress = { this.onSendPostHandler }
+                    />
+                </form>
+                <input type = 'submit' value = 'Post' onClick = { this.onSubmitHandler } />
+            </section>
         );
     }
 }
+
+export default withProfile(Composer);
 
 Composer.propTypes = {
     createPost: PropTypes.func.isRequired,
