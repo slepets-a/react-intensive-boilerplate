@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup, Transition }  from 'react-transition-group';
 import { fromTo } from 'gsap';

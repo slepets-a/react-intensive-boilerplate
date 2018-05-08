@@ -15,7 +15,7 @@
     & .postInEnd {
         transform: translate3D(0, 0, 0) scale(1);
         transition: opacity 500ms var(--cubic3),
-                    transform 500ms var(--cubic3);
+            transform 500ms var(--cubic3);
         opacity: 1;
     }
 
