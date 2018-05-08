@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Styles from "./styles.m.css";
 import { withProfile } from "../../components/HOC/withProfile";
 
-class Composer extends React.Component {
+export class Composer extends React.Component {
     constructor () {
         super();
         this.state = {
