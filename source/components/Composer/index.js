@@ -1,15 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Styles from './styles.m.css';
-import { withProfile } from '../../components/HOC/withProfile';
-import { socket } from "../../socket";
+import Styles from "./styles.m.css";
+import { withProfile } from "../../components/HOC/withProfile";
 
 class Composer extends React.Component {
     constructor () {
         super();
         this.state = {
-            comment: '',
+            comment: "",
         };
         this.onChangeHandler = this._onChangeHandler.bind(this);
         // this.onChangeHandler = ::this._onChangeHandler;
@@ -18,7 +17,7 @@ class Composer extends React.Component {
         this.onCopyTextHandler = this._onCopyTextHandler.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount () {
         // socket.on('quote', (quote) => {
         //     const data = JSON.parse(quote);
         //     const { comment } = this.state;
@@ -50,32 +49,23 @@ class Composer extends React.Component {
     }
 
     _onSubmitHandler () {
-        const {
-            comment,
-        } = this.state;
-        const {
-            createPost,
-        } = this.props;
+        const { comment } = this.state;
+        const { createPost } = this.props;
 
         if (comment) {
             createPost(comment);
             this.setState({
-                comment: '',
+                comment: "",
             });
         }
     }
 
     render () {
-        const {
-            comment,
-        } = this.state;
-        const {
-            avatar,
-            currentUserFirstName,
-        } = this.props;
+        const { comment } = this.state;
+        const { avatar, currentUserFirstName } = this.props;
 
         return (
-            <section className = { Styles.composer } >
+            <section className = { Styles.composer }>
                 <form>
                     <img alt = 'LoL' src = { avatar } />
                     <textarea
@@ -87,7 +77,11 @@ class Composer extends React.Component {
                         onKeyPress = { this.onSendPostHandler }
                     />
                 </form>
-                <input type = 'submit' value = 'Post' onClick = { this.onSubmitHandler } />
+                <input
+                    type = 'submit'
+                    value = 'Post'
+                    onClick = { this.onSubmitHandler }
+                />
             </section>
         );
     }

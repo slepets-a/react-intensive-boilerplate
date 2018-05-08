@@ -1,10 +1,10 @@
-import React from 'react';
-import cx from 'classnames';
+import React from "react";
+import cx from "classnames";
 
-import { socket } from '../../socket';
+import { socket } from "../../socket";
 
-import Styles from './styles.m.css';
-import { Consumer } from '../../components/HOC/withProfile';
+import Styles from "./styles.m.css";
+import { Consumer } from "../../components/HOC/withProfile";
 
 class StatusBar extends React.Component {
     constructor () {
@@ -15,12 +15,12 @@ class StatusBar extends React.Component {
     }
 
     componentDidMount () {
-        socket.on('connect', () => {
+        socket.on("connect", () => {
             this.setState({
                 online: true,
             });
         });
-        socket.on('disconnect', () => {
+        socket.on("disconnect", () => {
             this.setState({
                 online: false,
             });
@@ -28,37 +28,33 @@ class StatusBar extends React.Component {
     }
 
     render () {
-        const {
-            online,
-        } = this.state;
+        const { online } = this.state;
         const statusStyle = cx(Styles.status, {
-            [Styles.online]:  online,
+            [Styles.online]: online,
             [Styles.offline]: !online,
         });
-        const statusMessage = online ? 'Online' : 'Offline';
+        const statusMessage = online ? "Online" : "Offline";
 
         return (
             <Consumer>
-                {
-                    ({
-                        avatar,
-                        currentUserFirstName,
-                        currentUserLastName,
-                    } = {}) => (
-                        <section className = { Styles.statusBar }>
-                            <div className = { statusStyle }>
-                                <div>{ statusMessage }</div>
-                                <span />
-                            </div>
-                            <button>
-                                <img alt = 'avatar' src = { avatar } />
-                                <span>{ currentUserFirstName }</span>
-                                &nbsp;
-                                <span>{ currentUserLastName }</span>
-                            </button>
-                        </section>
-                    )
-                }
+                {({
+                    avatar,
+                    currentUserFirstName,
+                    currentUserLastName,
+                } = {}) => (
+                    <section className = { Styles.statusBar }>
+                        <div className = { statusStyle }>
+                            <div>{statusMessage}</div>
+                            <span />
+                        </div>
+                        <button>
+                            <img alt = 'avatar' src = { avatar } />
+                            <span>{currentUserFirstName}</span>
+                            &nbsp;
+                            <span>{currentUserLastName}</span>
+                        </button>
+                    </section>
+                )}
             </Consumer>
         );
     }

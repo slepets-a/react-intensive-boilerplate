@@ -1,22 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup, Transition }  from 'react-transition-group';
-import { fromTo } from 'gsap';
+import React from "react";
+import PropTypes from "prop-types";
+import {
+    CSSTransition,
+    TransitionGroup,
+    Transition
+} from "react-transition-group";
+import { fromTo } from "gsap";
 
 import Composer from "../../components/Composer";
 import Post from "../../components/Post";
 import StatusBar from "../../components/StatusBar";
-import Catcher from '../../components/Catcher';
-import Counter from '../../components/Counter';
-import Spinner from '../../components/Spinner';
-import Postman from '../../components/Postman';
+import Catcher from "../../components/Catcher";
+import Counter from "../../components/Counter";
+import Spinner from "../../components/Spinner";
+import Postman from "../../components/Postman";
 
-import withApi from '../../components/HOC/withApi';
+import withApi from "../../components/HOC/withApi";
 
-import Styles from './styles.m.css';
+import Styles from "./styles.m.css";
 
 class Feed extends React.Component {
-
     constructor () {
         super();
         this.state = {
@@ -34,21 +37,19 @@ class Feed extends React.Component {
     }
 
     _handleCounterAppear (counter) {
-        fromTo(counter, 0.5, { x: 400, opacity : 0 }, { x: 0, opacity: 1 });
+        fromTo(counter, 0.5, { x: 400, opacity: 0 }, { x: 0, opacity: 1 });
     }
 
     _handlePostmanAppear (postman) {
-        fromTo(postman, 1, { y: 400, opacity : 0 }, { y: 0, opacity: 1 });
+        fromTo(postman, 1, { y: 400, opacity: 0 }, { y: 0, opacity: 1 });
     }
 
     _handlePostmanDisappear (postman) {
-        fromTo(postman, 1, { y: 0, opacity : 1 }, { y: 400, opacity: 0 });
+        fromTo(postman, 1, { y: 0, opacity: 1 }, { y: 400, opacity: 0 });
     }
 
     render () {
-        const {
-            isPostsFetching,
-        } = this.state;
+        const { isPostsFetching } = this.state;
         const {
             currentUserFirstName,
             currentUserLastName,
@@ -60,29 +61,30 @@ class Feed extends React.Component {
             showPostman,
         } = this.props;
 
-        const renderedPosts = posts.map((post) => (<CSSTransition
-            classNames = { {
-                enter: Styles.postInStart,
-                enterActive: Styles.postInEnd,
-                exit: Styles.postOutStart,
-                exitActive: Styles.postOutEnd,
-            } }
-            key = { post.id }
-            timeout = { { enter: 500, exit: 400 } }>
-            <Catcher>
-                <Post
-                    { ...post }
-                    currentUserFirstName = { currentUserFirstName }
-                    currentUserLastName = { currentUserLastName }
-                    likePost = { likePost }
-                    removePost = { removePost }
-                />
-            </Catcher>
-        </CSSTransition>
+        const renderedPosts = posts.map((post) => (
+            <CSSTransition
+                classNames = { {
+                    enter: Styles.postInStart,
+                    enterActive: Styles.postInEnd,
+                    exit: Styles.postOutStart,
+                    exitActive: Styles.postOutEnd,
+                } }
+                key = { post.id }
+                timeout = { { enter: 500, exit: 400 } }>
+                <Catcher>
+                    <Post
+                        { ...post }
+                        currentUserFirstName = { currentUserFirstName }
+                        currentUserLastName = { currentUserLastName }
+                        likePost = { likePost }
+                        removePost = { removePost }
+                    />
+                </Catcher>
+            </CSSTransition>
         ));
 
         return (
-            <section className = { Styles.feed } >
+            <section className = { Styles.feed }>
                 <StatusBar />
                 <Transition
                     appear
@@ -99,10 +101,8 @@ class Feed extends React.Component {
                     <Counter count = { posts.length } />
                 </Transition>
                 <Spinner isSpinning = { isPostsFetching } />
-                <TransitionGroup>
-                    { renderedPosts }
-                </TransitionGroup>
-                { showPostman ? null : (
+                <TransitionGroup>{renderedPosts}</TransitionGroup>
+                {showPostman ? null : (
                     <Transition
                         appear
                         unmountOnExit
@@ -112,7 +112,7 @@ class Feed extends React.Component {
                         onExit = { this.handlePostmanDisappear }>
                         <Postman />
                     </Transition>
-                ) }
+                )}
             </section>
         );
     }

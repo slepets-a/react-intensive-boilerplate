@@ -1,11 +1,11 @@
-import React from 'react';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React from "react";
+import moment from "moment";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Styles from './styles.m';
+import Styles from "./styles.m";
 
-import Like from '../../components/Like';
+import Like from "../../components/Like";
 
 class Post extends React.Component {
     constructor () {
@@ -15,9 +15,9 @@ class Post extends React.Component {
     }
 
     shouldComponentUpdate (nextProps) {
-        return Object
-            .entries(nextProps)
-            .some(([key, value]) => this.props[key] !== value);
+        return Object.entries(nextProps).some(
+            ([key, value]) => this.props[key] !== value
+        );
     }
 
     _getCross () {
@@ -28,16 +28,14 @@ class Post extends React.Component {
             lastName,
         } = this.props;
 
-        return `${currentUserFirstName} ${currentUserLastName}` === `${firstName} ${lastName}` ? (
-            <span className = { Styles.cross } onClick = { this._removePost } />
-        ) : null;
+        return `${currentUserFirstName} ${currentUserLastName}` ===
+            `${firstName} ${lastName}` ? (
+                <span className = { Styles.cross } onClick = { this._removePost } />
+            ) : null;
     }
 
     _removePost () {
-        const {
-            id,
-            removePost,
-        } = this.props;
+        const { id, removePost } = this.props;
 
         removePost(id);
     }
@@ -53,27 +51,25 @@ class Post extends React.Component {
             likePost,
             likes,
         } = this.props;
-        const isPostMine = lastName === 'Слепец';
+        const isPostMine = lastName === "Слепец";
         const postStyle = cx(Styles.post, {
             [Styles.mine]: isPostMine,
         });
 
         return (
             <section className = { postStyle }>
-                { this.getCross() }
+                {this.getCross()}
                 <div className = { Styles.info }>
                     <img alt = { `${firstName} ${lastName}` } src = { avatar } />
                     <div className = { Styles.description }>
-                        <a href = 'https://www.linkedin.com/in/artemslepets/'>{ `${firstName} ${lastName}` }</a>
-                        <time>{ moment.unix(created).format('MMMM D h:mm:ss a') }</time>
+                        <a href = 'https://www.linkedin.com/in/artemslepets/'>{`${firstName} ${lastName}`}</a>
+                        <time>
+                            {moment.unix(created).format("MMMM D h:mm:ss a")}
+                        </time>
                     </div>
                 </div>
-                <pre>{ comment }</pre>
-                <Like
-                    id = { id }
-                    likePost = { likePost }
-                    likes = { likes }
-                />
+                <pre>{comment}</pre>
+                <Like id = { id } likePost = { likePost } likes = { likes } />
             </section>
         );
     }

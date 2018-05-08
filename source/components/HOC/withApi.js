@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 import { api, TOKEN, GROUP_ID } from "../../config/api";
 import { socket } from "../../socket";
 
-const withApi = (Enhanced) => (
+const withApi = (Enhanced) =>
     class WithApp extends React.Component {
         constructor () {
             super();
@@ -19,45 +19,39 @@ const withApi = (Enhanced) => (
         }
 
         componentDidMount () {
-            const {
-                currentUserFirstName,
-                currentUserLastName,
-            } = this.props;
+            const { currentUserFirstName, currentUserLastName } = this.props;
 
             this.fetchPosts();
-            socket.emit('join', GROUP_ID);
-            socket.on('create', (response) => {
+            socket.emit("join", GROUP_ID);
+            socket.on("create", (response) => {
                 const {
                     data: createdPost,
-                    meta: {
-                        authorFirstName,
-                        authorLastName,
-                    },
+                    meta: { authorFirstName, authorLastName },
                 } = JSON.parse(response);
 
-                if (`${authorFirstName} ${authorLastName}` !== `${currentUserFirstName} ${currentUserLastName}`) {
+                if (
+                    `${authorFirstName} ${authorLastName}` !==
+                    `${currentUserFirstName} ${currentUserLastName}`
+                ) {
                     this.setState(({ posts }) => ({
                         posts: [createdPost, ...posts],
                     }));
                 }
             });
-            socket.on('remove', (response) => {
+            socket.on("remove", (response) => {
                 const {
-                    data: {
-                        id,
-                    },
-                    meta: {
-                        authorFirstName,
-                        authorLastName,
-                    },
+                    data: { id },
+                    meta: { authorFirstName, authorLastName },
                 } = JSON.parse(response);
 
-                console.info(`${authorFirstName} ${authorLastName} removed his post`);
+                console.info(
+                    `${authorFirstName} ${authorLastName} removed his post`
+                );
                 this.setState(({ posts }) => ({
                     posts: posts.filter((post) => post.id !== id),
                 }));
             });
-            socket.on('like', (postJSON) => {
+            socket.on("like", (postJSON) => {
                 // const {
                 //     data: {
                 //         id,
@@ -74,7 +68,10 @@ const withApi = (Enhanced) => (
                     `${meta.authorFirstName} ${meta.authorLastName}`
                 ) {
                     this.setState(({ posts }) => ({
-                        posts: posts.map((post) => post.id === likedPost.id ? likedPost : post),
+                        posts: posts.map(
+                            (post) =>
+                                post.id === likedPost.id ? likedPost : post
+                        ),
                     }));
                 }
             });
@@ -84,7 +81,7 @@ const withApi = (Enhanced) => (
             }, 5000);
 
             // add 'Postman' flag to local storage
-            localStorage.setItem('postman', 'isShown');
+            localStorage.setItem("postman", "isShown");
         }
 
         componentWillUnmount () {
@@ -94,7 +91,7 @@ const withApi = (Enhanced) => (
         // interval for Postman
         postmanInterval = null;
         // flag for showing postman
-        showPostman = localStorage.getItem('postman');
+        showPostman = localStorage.getItem("postman");
 
         _setPostsFetchingState (state) {
             this.setState(() => ({
@@ -108,7 +105,7 @@ const withApi = (Enhanced) => (
                 const response = await fetch(api);
 
                 if (response.status !== 200) {
-                    throw new Error('Fetch posts failed');
+                    throw new Error("Fetch posts failed");
                 }
                 const { data } = await response.json();
 
@@ -125,19 +122,17 @@ const withApi = (Enhanced) => (
         async _createPost (comment) {
             this.setPostsFetchingState(true);
             try {
-                const response = await fetch(
-                    api,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': TOKEN,
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ comment }),
-                    });
+                const response = await fetch(api, {
+                    method: "POST",
+                    headers: {
+                        Authorization: TOKEN,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ comment }),
+                });
 
                 if (response.status !== 200) {
-                    throw new Error('Create post failed');
+                    throw new Error("Create post failed");
                 }
                 const { data } = await response.json();
 
@@ -154,14 +149,14 @@ const withApi = (Enhanced) => (
         async _removePost (id) {
             try {
                 const response = await fetch(`${api}/${id}`, {
-                    method: 'DELETE',
+                    method: "DELETE",
                     headers: {
-                        'Authorization': TOKEN,
+                        Authorization: TOKEN,
                     },
                 });
 
                 if (response.status !== 204) {
-                    throw new Error('Remove post failed');
+                    throw new Error("Remove post failed");
                 }
                 this.setState(({ posts }) => ({
                     posts: posts.filter((post) => post.id !== id),
@@ -174,14 +169,14 @@ const withApi = (Enhanced) => (
         async _likePost (id) {
             try {
                 const response = await fetch(`${api}/${id}`, {
-                    method: 'PUT',
+                    method: "PUT",
                     headers: {
-                        'Authorization': TOKEN,
+                        Authorization: TOKEN,
                     },
                 });
 
                 if (response.status !== 200) {
-                    throw new Error('Like post failed');
+                    throw new Error("Like post failed");
                 }
                 const { data } = await response.json();
 
@@ -206,7 +201,6 @@ const withApi = (Enhanced) => (
                 />
             );
         }
-    }
-);
+    };
 
 export default withApi;

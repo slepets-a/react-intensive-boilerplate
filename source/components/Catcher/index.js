@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Styles from './styles.m.css';
+import Styles from "./styles.m.css";
 
 class Catcher extends React.Component {
     constructor () {
         super();
         this.state = {
             isError: false,
-            message: '',
+            message: "",
         };
     }
 
-    componentDidCatch (error, stack) {
+    componentDidCatch (error) {
         this.setState(() => ({
             isError: true,
             message: error.toString(),
@@ -20,23 +20,21 @@ class Catcher extends React.Component {
     }
 
     render () {
-        const {
-            isError,
-            message,
-        } = this.state;
+        const { isError, message } = this.state;
         const { children } = this.props;
 
         return isError ? (
             <section className = { Styles.catcher }>
                 <span>A mysterious 👽 &nbsp;error 📛 &nbsp;occured.</span>
                 <p>
-                    Our space 🛰 &nbsp;engineers strike team 👩🏼‍🚀 👨🏼‍🚀
-                    &nbsp;is already working 🚀 &nbsp;in order to fix that
-                    for you!
+                    Our space 🛰 &nbsp;engineers strike team 👩🏼‍🚀 👨🏼‍🚀 &nbsp;is
+                    already working 🚀 &nbsp;in order to fix that for you!
                 </p>
-                <div>{ message }</div>
+                <div>{message}</div>
             </section>
-        ) : children;
+        ) :
+            children
+        ;
     }
 }
 
